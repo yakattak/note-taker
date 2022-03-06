@@ -1,7 +1,5 @@
 const router = require('express').Router();
-
-const res = require('express/lib/response');
-const notes = require('../../db/db.json');
+const {noteArray} = require('../../db/db.json');
 
 const {
     createNewNote,
@@ -10,20 +8,20 @@ const {
 
 
 router.get('/notes', (req, res) =>{
-    const oldNotes = notes;
+    const oldNotes = noteArray;
     res.json(oldNotes);
 }
 );
 
 router.post('/notes', (req, res) => {
-    req.body.id = notes.length.toString();
-    const newNote = createNewNote(req.body, notes);
+    req.body.id = noteArray.length.toString();
+    const newNote = createNewNote(req.body, noteArray);
     res.json(newNote);
 })
 
 router.delete('/notes/:id', (req, res) => {
-    removeNote(notes, req.params.id);
-    res.json(notes);
+    removeNote(noteArray, req.params.id);
+    res.json(noteArray);
 })
 
 module.exports = router;
